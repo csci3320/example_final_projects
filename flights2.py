@@ -2,6 +2,7 @@ class Airport: # The nodes in our non-linear data structure
   def __init__(self, name):
     self.name = name
     self.edges = []
+
   def __str__(self):
     return self.name
   def __repr__(self):
@@ -11,10 +12,11 @@ class FlightTime: # The edges in our non-linear data structure
   def __init__(self, time, destination):
     self.time = time
     self.destination = destination
-    def __str__(self):
-      return self.destination + "->" + str(self.time)
-    def __repr__(self):
-      return self.__str__()
+
+  def __str__(self):
+    return str(self.destination) + "->" + str(self.time)
+  def __repr__(self):
+    return self.__str__()
 
 oma = Airport("OMA")
 atl = Airport("ATL")
@@ -45,54 +47,24 @@ start = oma
 end = lax
 all_airports = [oma, lax, atl, sfo]
 
-shortest_distances = {}
-visited = [oma]
-unvisited = [x for x in all_airports if x not in visited]
+explored = [oma]
+unexplored = [x for x in all_airports if x not in explored]
+shortest_distances = {a:0 if a in explored else 10000 for a in all_airports}
 
 
-UNVISITED = 10000
+while len(unexplored) > 0:
+  best = None
+  best_time = 1000000
+  for airport in explored:
+    for edge in [x for x in airport.edges if x.destination in unexplored]:
+      new_distance = edge.time + shortest_distances[airport]
+      if new_distance < best_time:
+        best, best_time = edge.destination, new_distance
 
-for airport in all_airports:
-  if airport is start:
-    shortest_distances[airport] = 0
-  else:
-    shortest_distances[airport] = UNVISITED
-
-
-while len(unvisited) > 0:
-  candidates = {}
-  for visited_airport in visited:
-    shortest_distance = shortest_distances[visited_airport]
-    for edge in visited_airport.edges:
-      new_distance = edge.time + shortest_distance
-      new_airport = edge.destination
-      if new_airport in visited:
-        continue
-      if new_airport in candidates:
-        if candidates[new_airport] > new_distance:
-          candidates[new_airport] = new_distance
-      else:
-        candidates[new_airport] = new_distance
-  # Now find the closest candidate
-  closest_candidate = min(candidates, key=candidates.get )
-  closest_candidate_distance = candidates[closest_candidate]
-  visited.append(closest_candidate)
-  unvisited.remove(closest_candidate)
-  shortest_distances[closest_candidate] = closest_candidate_distance
+  explored.append(best)
+  unexplored.remove(best)
+  shortest_distances[best] = best_time
   
 print("The shortest path to " + str(end) + " is " + str(shortest_distances[end]))
-
-
-# for airport in visited:
-#   airport_object = airport[0]
-#   flight_time = airport[1]
-
-#   for destination in airport_object.edges:
-#     matches = filter(lambda a: a[0], possible)
-#     if destination in matches:
-
-
-    
-
 
 
