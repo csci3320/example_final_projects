@@ -4,7 +4,7 @@ This code is meant to give you ideas about what you can do with a non-linear dat
 Note that the example files are far shorter than your actual final project should be.
 
 ## flights.py:
-Example of a non-linear data structure that is directed and has weights. It is directed because we have flights not every airport has a return flight (at least in our code). It is weighted because our flight time class keeps track of how long each flight is.
+Example of a non-linear data structure that is undirected and has weights. It is undirected because we have flights in pairs. It is weighted because our flight time class keeps track of how long each flight is. [Note: The previous version of flights.py was directed.]
 
 ## construction.py
 Example of a non-linear data structure that is directed and doesn't have weights. It is directed because you can go backwards, and it doesn't have weights because we don't need a special edge class to store weights
