@@ -11,10 +11,10 @@ class FlightTime: # The edges in our non-linear data structure
   def __init__(self, time, destination):
     self.time = time
     self.destination = destination
-    def __str__(self):
-      return self.destination + "->" + str(self.time)
-    def __repr__(self):
-      return self.__str__()
+  def __str__(self):
+    return self.destination + "->" + str(self.time)
+  def __repr__(self):
+    return self.__str__()
 
 oma = Airport("OMA")
 atl = Airport("ATL")
